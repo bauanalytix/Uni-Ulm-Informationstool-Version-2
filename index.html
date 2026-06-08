@@ -548,25 +548,34 @@ doc.setFont("helvetica", "normal");
   if (data.section === 'body' && data.column.index === 0) {
     const value = String(data.cell.raw || '').trim().toLowerCase();
 
-  if (data.section === 'body' && data.column.index === 0) {
-  const value = String(data.cell.raw || '').trim().toLowerCase();
+if (data.section === 'body') {
 
-  if (value === 'rot') {
-    data.cell.styles.textColor = [192, 0, 0];
-    data.cell.styles.fontStyle = 'bold';
-  }
+  const rowData = rows[data.row.index];
 
-  if (value === 'orange') {
-    data.cell.styles.textColor = [244, 160, 0];
-  }
+  if (rowData && rowData.warnung) {
 
-  if (value === 'grün' || value === 'gruen') {
-    data.cell.styles.textColor = [0, 128, 0];
+    const value = String(rowData.warnung).trim().toLowerCase();
+
+    if (value === 'rot') {
+      data.cell.styles.fontStyle = 'bold';
+    }
+
+    if (data.column.index === 0) {
+
+      if (value === 'rot') {
+        data.cell.styles.textColor = [192, 0, 0];
+      }
+
+      if (value === 'orange') {
+        data.cell.styles.textColor = [244, 160, 0];
+      }
+
+      if (value === 'grün' || value === 'gruen') {
+        data.cell.styles.textColor = [0, 128, 0];
+      }
+    }
   }
 }
-    if (value === 'orange') data.cell.styles.textColor = [244, 160, 0];
-    if (value === 'grün' || value === 'gruen') data.cell.styles.textColor = [0, 128, 0];
-  }
 
   if (data.section === 'body' && data.column.index === 6) {
     const rowData = rows[data.row.index];
