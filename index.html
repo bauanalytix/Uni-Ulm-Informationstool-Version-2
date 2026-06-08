@@ -544,49 +544,32 @@ doc.setFont("helvetica", "normal");
       8: { cellWidth: 24 }
     },
 
-    didParseCell: function (data) {
-  if (data.section === 'body' && data.column.index === 0) {
-    const value = String(data.cell.raw || '').trim().toLowerCase();
-
-if (data.section === 'body') {
-
-  const rowData = rows[data.row.index];
-
-  if (rowData && rowData.warnung) {
-
-    const value = String(rowData.warnung).trim().toLowerCase();
-
-    if (value === 'rot') {
-      data.cell.styles.fontStyle = 'bold';
-    }
-
-    if (data.column.index === 0) {
-
-      if (value === 'rot') {
-        data.cell.styles.textColor = [192, 0, 0];
-      }
-
-      if (value === 'orange') {
-        data.cell.styles.textColor = [244, 160, 0];
-      }
-
-      if (value === 'grün' || value === 'gruen') {
-        data.cell.styles.textColor = [0, 128, 0];
-      }
-    }
-  }
-}
-
-  if (data.section === 'body' && data.column.index === 6) {
+  didParseCell: function (data) {
+  if (data.section === 'body') {
     const rowData = rows[data.row.index];
 
-    if (rowData && rowData.handlungshinweise) {
-      data.cell.styles.textColor = [0, 85, 204];
-      data.cell.styles.fontStyle = 'bold';
+    if (rowData && rowData.warnung) {
+      const value = String(rowData.warnung).trim().toLowerCase();
+
+      if (value === 'rot') {
+        data.cell.styles.fontStyle = 'bold';
+      }
+
+      if (data.column.index === 0) {
+        if (value === 'rot') data.cell.styles.textColor = [192, 0, 0];
+        if (value === 'orange') data.cell.styles.textColor = [244, 160, 0];
+        if (value === 'grün' || value === 'gruen') data.cell.styles.textColor = [0, 128, 0];
+      }
+    }
+
+    if (data.column.index === 6) {
+      if (rowData && rowData.handlungshinweise) {
+        data.cell.styles.textColor = [0, 85, 204];
+        data.cell.styles.fontStyle = 'bold';
+      }
     }
   }
 },
-
 didDrawCell: function (data) {
   if (data.section === 'body' && data.column.index === 6) {
     const rowData = rows[data.row.index];
