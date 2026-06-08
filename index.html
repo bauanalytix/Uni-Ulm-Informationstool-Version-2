@@ -548,9 +548,21 @@ doc.setFont("helvetica", "normal");
   if (data.section === 'body' && data.column.index === 0) {
     const value = String(data.cell.raw || '').trim().toLowerCase();
 
-    if (value === 'rot') {
-  data.cell.styles.textColor = [192, 0, 0];
-  data.cell.styles.fontStyle = 'bold';
+  if (data.section === 'body' && data.column.index === 0) {
+  const value = String(data.cell.raw || '').trim().toLowerCase();
+
+  if (value === 'rot') {
+    data.cell.styles.textColor = [192, 0, 0];
+    data.cell.styles.fontStyle = 'bold';
+  }
+
+  if (value === 'orange') {
+    data.cell.styles.textColor = [244, 160, 0];
+  }
+
+  if (value === 'grün' || value === 'gruen') {
+    data.cell.styles.textColor = [0, 128, 0];
+  }
 }
     if (value === 'orange') data.cell.styles.textColor = [244, 160, 0];
     if (value === 'grün' || value === 'gruen') data.cell.styles.textColor = [0, 128, 0];
