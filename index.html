@@ -475,14 +475,22 @@ async function createPDF() {
   doc.setFontSize(16);
   doc.text('ulmtool2 – Schadstoffübersicht', 14, 30);
 
-  doc.setFontSize(9);
-  doc.text(`Gebäude: ${buildingSelect.value} | Niveau: ${levelSelect.value} | Raum: ${roomSelect.value}`, 14, 37);
+  doc.setFont("helvetica", "bold");
+doc.setFontSize(11);
 
-  doc.setFontSize(12);
+doc.text(
+  `Gebäude: ${buildingSelect.value} | Niveau: ${levelSelect.value} | Raum: ${roomSelect.value}`,
+  14,
+  52
+);
+
+doc.setFont("helvetica", "normal");
+
+  doc.setFontSize(9);
   doc.text(
     'Die nachfolgende Übersicht stellt eine Zusammenfassung der bislang dokumentierten Untersuchungsergebnisse dar. Fehlende Angaben zu einzelnen Räumen oder Bauteilen bedeuten nicht zwangsläufig Schadstofffreiheit. Sofern keine Untersuchungsergebnisse vorliegen, können ergänzende Erkundungen oder Probenahmen erforderlich sein.',
     14,
-    44,
+    36,
     { maxWidth: 260 }
   );
 
@@ -499,7 +507,7 @@ async function createPDF() {
   ]);
 
   doc.autoTable({
-    startY: 58,
+    startY: 60,
     head: [[
       'Warnung',
       'Niveau',
@@ -570,6 +578,15 @@ didDrawCell: function (data) {
 }
   });
 
+  const now = new Date();
+const timestamp = now.toLocaleDateString('de-DE') + ' ' +
+  now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+
+doc.setFontSize(8);
+doc.setTextColor(100, 100, 100);
+doc.text(`PDF erzeugt am: ${timestamp}`, 14, 200);
+doc.setTextColor(0, 0, 0);
+  
   doc.save(`ulmtool2_${buildingSelect.value}_${levelSelect.value}_${roomSelect.value}.pdf`);
 }
 
