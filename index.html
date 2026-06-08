@@ -375,11 +375,13 @@ function showResults() {
   background:${row.warnung === 'rot' ? '#c00000' : row.warnung === 'orange' ? '#f4a000' : '#008000'};
   margin-right:8px;
 "></span>
-<strong>${row.bauteil || 'ohne Bauteilangabe'}</strong><br>
+<strong>${row.bauteil || 'ohne Bauteilangabe'}</strong>
+<span style="color:#666; font-weight:normal;">
+(${row.raum})
+</span><br>
 
       ${row.beschreibung || 'keine Beschreibung'}<br>
 <span class="small">${row.ergebnis || 'kein Ergebnis eingetragen'}</span>
-${row.handlungshinweise ? `<br><a href="${row.handlungshinweise}" target="_blank" style="font-size:0.9em; color:#0055cc;">Handlungshinweise öffnen</a>` : ''}
     `;
     resultsDiv.appendChild(div);
   });
