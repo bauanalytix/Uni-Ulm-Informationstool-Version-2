@@ -443,13 +443,15 @@ async function loadExcelFromFile() {
     return '';
   }
 
-  const match = String(niveau || '').match(/^Niv\.?\s*([0-6])$/i);
+  const nivText = String(niveau || '').trim();
+
+  const match = nivText.match(/niv\.?\s*([0-6])$/i);
 
   if (!match) {
     return '';
   }
 
-  return `M24_MCO_Niv${match[1]}.pdf`;
+  return `https://bauanalytix.github.io/Uni-Ulm-Informationstool-Version-2/M24_MCO_Niv${match[1]}.pdf`;
 }
   
 function loadImageAsDataURL(src) {
