@@ -436,7 +436,7 @@ async function loadExcelFromFile() {
   }
 }
 
-  function getMcoPlanLink(niveau, quelle) {
+ function getMcoPlanLink(niveau, quelle) {
   const q = String(quelle || '').trim().toLowerCase();
 
   if (!q.includes('mco')) {
@@ -445,7 +445,7 @@ async function loadExcelFromFile() {
 
   const nivText = String(niveau || '').trim();
 
-  const match = nivText.match(/niv\.?\s*([0-6])$/i);
+  const match = nivText.match(/niv\.?\s*([0-6])/i);
 
   if (!match) {
     return '';
