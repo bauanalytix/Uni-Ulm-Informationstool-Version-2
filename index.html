@@ -436,6 +436,22 @@ async function loadExcelFromFile() {
   }
 }
 
+  function getMcoPlanLink(niveau, quelle) {
+  const q = String(quelle || '').trim().toLowerCase();
+
+  if (!q.includes('mco')) {
+    return '';
+  }
+
+  const match = String(niveau || '').match(/^Niv\.?\s*([0-6])$/i);
+
+  if (!match) {
+    return '';
+  }
+
+  return `M24_MCO_Niv${match[1]}.pdf`;
+}
+  
 function loadImageAsDataURL(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -568,19 +584,43 @@ doc.setFont("helvetica", "normal");
         data.cell.styles.fontStyle = 'bold';
       }
     }
+    if (data.column.index === 8) {
+  const mcoLink = getMcoPlanLink(rowData?.niveau, rowData?.quelle);
+
+  if (mcoLink) {
+    data.cell.styles.textColor = [0, 85, 204];
+    data.cell.styles.fontStyle = 'bold';
+  }
+}
   }
 },
 didDrawCell: function (data) {
-  if (data.section === 'body' && data.column.index === 6) {
-    const rowData = rows[data.row.index];
+  if (data.section !== 'body') return;
 
-    if (rowData && rowData.handlungshinweise) {
+  const rowData = rows[data.row.index];
+
+  if (!rowData) return;
+
+  if (data.column.index === 6 && rowData.handlungshinweise) {
+    doc.link(
+      data.cell.x,
+      data.cell.y,
+      data.cell.width,
+      data.cell.height,
+      { url: rowData.handlungshinweise }
+    );
+  }
+
+  if (data.column.index === 8) {
+    const mcoLink = getMcoPlanLink(rowData.niveau, rowData.quelle);
+
+    if (mcoLink) {
       doc.link(
         data.cell.x,
         data.cell.y,
         data.cell.width,
         data.cell.height,
-        { url: rowData.handlungshinweise }
+        { url: mcoLink }
       );
     }
   }
