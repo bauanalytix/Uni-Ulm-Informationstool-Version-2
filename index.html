@@ -255,7 +255,7 @@ function setSelectOptions(selectEl, values, placeholder, includeAll = false) {
 
 function populateBuildings() {
   const buildings = uniqueValues('gebaeude');
-setSelectOptions(buildingSelect, buildings, 'Keine Gebäude gefunden', true);
+setSelectOptions(buildingSelect, buildings, 'Keine Gebäude gefunden', false);
   populateLevels();
 }
 
@@ -293,7 +293,11 @@ function populateCategories() {
        .filter(item =>
   (building === '__ALL__' || item.gebaeude === building) &&
   (level === '__ALL__' || item.niveau === level) &&
-  (room === '__ALL__' || item.raum === room) &&
+(
+  room === '__ALL__' ||
+  item.raum === room ||
+  String(item.raum || '').trim().toLowerCase() === 'alle räume'
+) &&
   item.kategorie
 )
         .map(item => item.kategorie)
