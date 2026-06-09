@@ -296,7 +296,7 @@ function populateCategories() {
 (
   room === '__ALL__' ||
   item.raum === room ||
-  String(item.raum || '').trim().toLowerCase() === 'alle räume'
+  item.raum === 'alle Räume'
 ) &&
   item.kategorie
 )
@@ -344,8 +344,7 @@ function getSelectedData() {
 (
   room === '__ALL__' ||
   item.raum === room ||
-  String(item.raum || '').trim().toLowerCase() === 'alle räume' ||
-  String(item.raum || '').trim().toLowerCase() === 'alle raeume'
+  item.raum === 'alle Räume'
 ) &&
     (
       selectedCategories.length === 0 ||
