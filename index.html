@@ -341,7 +341,12 @@ function getSelectedData() {
   return data.filter(item =>
 (building === '__ALL__' || item.gebaeude === building) &&
 (level === '__ALL__' || item.niveau === level) &&
-(room === '__ALL__' || item.raum === room) &&
+(
+  room === '__ALL__' ||
+  item.raum === room ||
+  String(item.raum || '').trim().toLowerCase() === 'alle räume' ||
+  String(item.raum || '').trim().toLowerCase() === 'alle raeume'
+) &&
     (
       selectedCategories.length === 0 ||
       selectedCategories.includes(item.kategorie)
