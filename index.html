@@ -131,6 +131,7 @@
 
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:20px; flex-wrap:wrap;">
   <img src="bauanalytix.jpg" alt="bauanalytix" style="height:45px; object-fit:contain;">
+    <img src="LogoUniUlm.png" alt="Universität Ulm" style="height:45px; object-fit:contain;">
   <img src="vub.png" alt="Vermögen und Bau" style="height:50px; object-fit:contain;">
 </div>
 
@@ -173,6 +174,18 @@
     <div id="results">Bitte zuerst eine Excel-Datei laden.</div>
   </div>
 
+  <div class="box" style="font-size:0.85em; color:#666;">
+  <strong>© bauanalytix GmbH</strong><br>
+  Alle Rechte vorbehalten.<br>
+  Die Anwendung einschließlich Struktur, Datenmodell,
+  Programmcode und Inhalte ist urheberrechtlich geschützt.
+  <br><br>
+
+  <a href="https://www.bauanalytix.de/Impressum/" target="_blank">
+    Impressum
+  </a>
+</div>
+  
 </div>
 
 <script>
@@ -492,10 +505,14 @@ async function createPDF() {
 
   try {
     const bauanalytixLogo = await loadImageAsDataURL('bauanalytix.jpg');
+    const uniLogo = await loadImageAsDataURL('LogoUniUlm.png');
     const vubLogo = await loadImageAsDataURL('vub.png');
 
-    doc.addImage(bauanalytixLogo, 'PNG', 14, 8, 55, 10);
-    doc.addImage(vubLogo, 'PNG', 230, 8, 48, 13);
+ doc.addImage(bauanalytixLogo, 'PNG', 14, 8, 55, 10);
+
+doc.addImage(uniLogo, 'PNG', 115, 6, 45, 12);
+
+doc.addImage(vubLogo, 'PNG', 230, 8, 48, 13);
   } catch (error) {
     console.warn('Logos konnten im PDF nicht geladen werden.', error);
   }
