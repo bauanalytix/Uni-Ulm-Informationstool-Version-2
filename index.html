@@ -485,7 +485,7 @@ function loadImageAsDataURL(src) {
       canvas.height = img.naturalHeight;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
-      resolve(canvas.toDataURL('image/png'));
+      resolve(canvas.toDataURL('image/jpeg', 0.7));
     };
     img.onerror = reject;
     img.src = src;
