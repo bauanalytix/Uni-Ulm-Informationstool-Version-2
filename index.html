@@ -491,21 +491,34 @@ function showResults() {
     const div = document.createElement('div');
     div.className = 'result';
 
-    const resultText = row.ergebnis ||
-      (isNoDataWarning(row.warnung)
-        ? 'keine Untersuchungsergebnisse vorhanden'
-        : 'kein Ergebnis eingetragen');
+    const bauteilAnzeige =
+      row.bauteil ||
+      row.kategorie ||
+      'ohne Bauteilangabe';
+
+    const beschreibungAnzeige =
+      row.beschreibung ||
+      'keine Beschreibung';
+
+    const ergebnisAnzeige =
+      row.ergebnis ||
+      (
+        isNoDataWarning(row.warnung)
+          ? 'noch keine Untersuchungsergebnisse vorhanden'
+          : 'kein Ergebnis eingetragen'
+      );
 
     div.innerHTML = `
 <span class="warning-dot" style="${getWarningDotStyle(row.warnung)}"></span>
-<strong>${row.bauteil || 'ohne Bauteilangabe'}</strong>
+<strong>${bauteilAnzeige}</strong>
 <span style="color:#666; font-weight:normal;">
 (${row.raum})
 </span><br>
 
-      ${row.beschreibung || 'keine Beschreibung'}<br>
-<span class="small">${resultText}</span>
+${beschreibungAnzeige}<br>
+<span class="small">${ergebnisAnzeige}</span>
     `;
+
     resultsDiv.appendChild(div);
   });
 }
@@ -528,7 +541,7 @@ async function loadExcelFromFile() {
       gebaeude: findValue(row, ['Gebäude', 'Gebaeude']) || 'M24',
       niveau: findValue(row, ['Niveau Ebene', 'Niveau / Ebene', 'Niveau/Ebene', 'Niveau Geschoss', 'Niveau / Geschoss', 'Niveau/Geschoss', 'Geschoss Niveau', 'Geschoss / Niveau', 'Geschoss/Niveau', 'Niveau', 'Ebene', 'Geschoss', 'Level']),
       raum: findValue(row, ['Bereich Raum', 'Raum', 'Raumnummer', 'Bereich/Raum']),
-      kategorie: findValue(row, ['Kategorie']),
+      kategorie: findValue(row, ['Kategorie', 'Bauteilart', 'Art des Bauteils']),
       bauteil: findValue(row, ['Bauteil']),
       beschreibung: findValue(row, ['Beschreibung Bauteil', 'Bauteilbeschreibung', 'Beschreibung']),
       analyse: findValue(row, ['Analyse auf/ Parameter', 'Analyse auf / Parameter', 'Analyse auf', 'Analyseparameter', 'Parameter']),
